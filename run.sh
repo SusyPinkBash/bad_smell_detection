@@ -3,3 +3,4 @@
 # Knowledge Analysis and Management
 # Project 1: Bad Smell Detection
 
+python3 src/onto-creator.py tree.py
