@@ -456,7 +456,7 @@
   <rdfs:subClassOf rdf:resource="#Declaration"/>
 </owl:Class>
 
-<ClassDeclaration rdf:about="#PGNProvider">
+<ClassDeclaration rdf:about="#classdeclaration1">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration1"/>
   <body rdf:resource="#methoddeclaration2"/>
@@ -475,6 +475,7 @@
   <body rdf:resource="#fielddeclaration9"/>
   <body rdf:resource="#fielddeclaration10"/>
   <body rdf:resource="#fielddeclaration11"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PGNProvider</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration1">
@@ -562,11 +563,12 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mOpenHelper</jname>
 </FieldDeclaration>
 
-<ClassDeclaration rdf:about="#DatabaseHelper">
+<ClassDeclaration rdf:about="#classdeclaration2">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration7"/>
   <body rdf:resource="#methoddeclaration8"/>
   <body rdf:resource="#constructordeclaration1"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DatabaseHelper</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration7">
@@ -584,7 +586,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">DatabaseHelper</jname>
 </ConstructorDeclaration>
 
-<ClassDeclaration rdf:about="#ChessPuzzleProvider">
+<ClassDeclaration rdf:about="#classdeclaration3">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration9"/>
   <body rdf:resource="#methoddeclaration10"/>
@@ -615,6 +617,7 @@
   <body rdf:resource="#fielddeclaration32"/>
   <body rdf:resource="#fielddeclaration33"/>
   <body rdf:resource="#fielddeclaration34"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">ChessPuzzleProvider</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration9">
@@ -762,7 +765,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mOpenHelper</jname>
 </FieldDeclaration>
 
-<ClassDeclaration rdf:about="#GameControl">
+<ClassDeclaration rdf:about="#classdeclaration4">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration15"/>
   <body rdf:resource="#methoddeclaration16"/>
@@ -852,6 +855,7 @@
   <body rdf:resource="#fielddeclaration57"/>
   <body rdf:resource="#fielddeclaration58"/>
   <body rdf:resource="#constructordeclaration2"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GameControl</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration15">
@@ -1294,7 +1298,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">GameControl</jname>
 </ConstructorDeclaration>
 
-<ClassDeclaration rdf:about="#Valuation">
+<ClassDeclaration rdf:about="#classdeclaration5">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration78"/>
   <body rdf:resource="#fielddeclaration59"/>
@@ -1321,6 +1325,7 @@
   <body rdf:resource="#fielddeclaration80"/>
   <body rdf:resource="#fielddeclaration81"/>
   <body rdf:resource="#constructordeclaration3"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valuation</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration78">
@@ -1448,7 +1453,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Valuation</jname>
 </ConstructorDeclaration>
 
-<ClassDeclaration rdf:about="#JNI">
+<ClassDeclaration rdf:about="#classdeclaration6">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration79"/>
   <body rdf:resource="#methoddeclaration80"/>
@@ -1495,6 +1500,7 @@
   <body rdf:resource="#methoddeclaration121"/>
   <body rdf:resource="#methoddeclaration122"/>
   <body rdf:resource="#constructordeclaration4"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">JNI</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration79">
@@ -1722,12 +1728,13 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">JNI</jname>
 </ConstructorDeclaration>
 
-<ClassDeclaration rdf:about="#PGNEntry">
+<ClassDeclaration rdf:about="#classdeclaration7">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#fielddeclaration82"/>
   <body rdf:resource="#fielddeclaration83"/>
   <body rdf:resource="#fielddeclaration84"/>
   <body rdf:resource="#constructordeclaration5"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PGNEntry</jname>
 </ClassDeclaration>
 
 <FieldDeclaration rdf:about="#fielddeclaration82">
@@ -1750,7 +1757,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PGNEntry</jname>
 </ConstructorDeclaration>
 
-<ClassDeclaration rdf:about="#PGNColumns">
+<ClassDeclaration rdf:about="#classdeclaration8">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#fielddeclaration85"/>
   <body rdf:resource="#fielddeclaration86"/>
@@ -1762,6 +1769,7 @@
   <body rdf:resource="#fielddeclaration92"/>
   <body rdf:resource="#fielddeclaration93"/>
   <body rdf:resource="#fielddeclaration94"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PGNColumns</jname>
 </ClassDeclaration>
 
 <FieldDeclaration rdf:about="#fielddeclaration85">
@@ -1814,7 +1822,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">COLUMNS</jname>
 </FieldDeclaration>
 
-<ClassDeclaration rdf:about="#Move">
+<ClassDeclaration rdf:about="#classdeclaration9">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration123"/>
   <body rdf:resource="#methoddeclaration124"/>
@@ -1848,6 +1856,7 @@
   <body rdf:resource="#fielddeclaration103"/>
   <body rdf:resource="#fielddeclaration104"/>
   <body rdf:resource="#fielddeclaration105"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Move</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration123">
@@ -2010,7 +2019,7 @@
   <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SHIFT_PROMOTIONPIECE</jname>
 </FieldDeclaration>
 
-<ClassDeclaration rdf:about="#Pos">
+<ClassDeclaration rdf:about="#classdeclaration10">
   <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
   <body rdf:resource="#methoddeclaration144"/>
   <body rdf:resource="#methoddeclaration145"/>
@@ -2019,6 +2028,7 @@
   <body rdf:resource="#methoddeclaration148"/>
   <body rdf:resource="#methoddeclaration149"/>
   <body rdf:resource="#methoddeclaration150"/>
+  <jname rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pos</jname>
 </ClassDeclaration>
 
 <MethodDeclaration rdf:about="#methoddeclaration144">

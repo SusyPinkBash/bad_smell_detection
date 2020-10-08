@@ -22,7 +22,8 @@ def start(project_path):
     ontology = get_ontology("../res/tree.owl").load()
     with ontology:
         for class_name, classAST in class_declarations.items():
-            class_declaration = ontology["ClassDeclaration"](class_name)
+            class_declaration = ontology["ClassDeclaration"]()
+            class_declaration.jname = [class_name]
 
             # print("\n##### METHODS #####")
             for method in classAST.methods:
