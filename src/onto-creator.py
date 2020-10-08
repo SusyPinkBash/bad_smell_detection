@@ -1,4 +1,4 @@
-import sys
+from sys import argv, exit
 from ast import *
 from owlready2 import *
 from types import new_class
@@ -33,7 +33,7 @@ def start(python_file_name):
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 
 
-if len(sys.argv) < 2:
+if len(argv) < 2:
     print("Please give as input the path of the python class file to create the ontology")
-    sys.exit(1)
-start(sys.argv[1])
+    exit(1)
+start(argv[1])
