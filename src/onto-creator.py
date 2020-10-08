@@ -1,5 +1,5 @@
+import sys
 from ast import *
-from sys import argv
 from owlready2 import *
 from types import new_class
 
@@ -12,7 +12,7 @@ class Class:
 
 
 def start(python_file_name):
-    ontology_file_name = "../tree.owl"
+    ontology_file_name = "../res/tree.owl"
     ontology_file = get_ontology(ontology_file_name)
     classes = [Class(node.name, [node_base.id for node_base in node.bases], [elt.s for elt in node.body[0].value.elts])
                for node in walk(parse(open(python_file_name, "r").read())) if type(node) is ClassDef]
@@ -36,4 +36,4 @@ def start(python_file_name):
 if len(sys.argv) < 2:
     print("Please give as input the path of the python class file to create the ontology")
     sys.exit(1)
-start(argv[1])
+start(sys.argv[1])
