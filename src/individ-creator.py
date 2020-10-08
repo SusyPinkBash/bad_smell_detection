@@ -6,7 +6,7 @@ from owlready2 import *
 
 
 def start(project_path):
-    ontology = get_ontology("../res/tree.owl").load()
+    # PARSING PROJECT FILES TO DICTIONARY {class_name : ClassDeclaration}
     # TODO: refactor with possibly comprehension and better structure
     class_declarations = {}
     for path, _, files in os.walk(project_path):
@@ -16,7 +16,22 @@ def start(project_path):
                 for _, node in jl.parse.parse(open(full_path, "r").read()):
                     if type(node) is jl.tree.ClassDeclaration:
                         class_declarations[node.name] = node
-    print(class_declarations)
+    print(class_declarations.keys())
+
+    # ONTOLOGY
+    ontology = get_ontology("../res/tree.owl").load()
+    for class_name, declaration_node in class_declarations.items():
+        ontology["ClassDeclaration"](class_name)
+        # class_declaration = ontology["ClassDeclaration"]()
+        # class_declaration.jname = [class_name]
+
+
+
+    ontology.save(file="../res/tree2.owl", format="rdfxml")
+
+
+
+
 
 
 if len(argv) < 2:

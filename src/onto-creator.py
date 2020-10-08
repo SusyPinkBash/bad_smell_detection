@@ -13,7 +13,7 @@ class Class:
 
 def start(python_file_name):
     ontology_file_name = "../res/tree.owl"
-    ontology_file = get_ontology(ontology_file_name)
+    ontology_file = get_ontology("http://test.org/tree.owl")
     classes = [Class(node.name, [node_base.id for node_base in node.bases], [elt.s for elt in node.body[0].value.elts])
                for node in walk(parse(open(python_file_name, "r").read())) if type(node) is ClassDef]
     with ontology_file:
@@ -31,9 +31,7 @@ def start(python_file_name):
                 if class_property == "body" or class_property == "parameters":
                     new_class(class_property, (ObjectProperty,))
                 else:
-                    if class_property == 'name':
-                        class_property = "jname"
-                    new_class(class_property, (DataProperty,))
+                    new_class("jname" if class_property == "name" else class_property, (DataProperty,))
 
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 

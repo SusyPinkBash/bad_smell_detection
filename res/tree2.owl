@@ -456,5 +456,45 @@
   <rdfs:subClassOf rdf:resource="#Declaration"/>
 </owl:Class>
 
+<ClassDeclaration rdf:about="#PGNProvider">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#DatabaseHelper">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#ChessPuzzleProvider">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#GameControl">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#Valuation">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#JNI">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#PGNEntry">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#PGNColumns">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#Move">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
+<ClassDeclaration rdf:about="#Pos">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+</ClassDeclaration>
+
 
 </rdf:RDF>
