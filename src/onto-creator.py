@@ -28,7 +28,12 @@ def start(python_file_name):
                                                ontology_file[current_class.super_classes[1]],))
 
             for class_property in current_class.properties:
-                new_class(class_property, (ObjectProperty,))
+                if class_property == "body" or class_property == "parameters":
+                    new_class(class_property, (ObjectProperty,))
+                else:
+                    if class_property == 'name':
+                        class_property = "jname"
+                    new_class(class_property, (DataProperty,))
 
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 
