@@ -20,18 +20,32 @@ def start(project_path):
 
     # ONTOLOGY
     ontology = get_ontology("../res/tree.owl").load()
-    for class_name, declaration_node in class_declarations.items():
-        ontology["ClassDeclaration"](class_name)
-        # class_declaration = ontology["ClassDeclaration"]()
-        # class_declaration.jname = [class_name]
+    with ontology:
+        for class_name, classAST in class_declarations.items():
+            class_declaration = ontology["ClassDeclaration"](class_name)
 
+            # print("\n##### METHODS #####")
+            for method in classAST.methods:
+                method_declaration = ontology["MethodDeclaration"]()
+                method_declaration.jname.append(method.name)
+                class_declaration.body.append(method_declaration)
 
+            # print("##### FIELDS #####")
+            for field in classAST.fields:
+                for decl in field.declarators:
+                    field_declaration = ontology["FieldDeclaration"]()
+                    field_declaration.jname.append(decl.name)
+                    class_declaration.body.append(field_declaration)
+
+            # print("##### CONSTRUCTORS #####")
+            for constructor in classAST.constructors:
+                constructor_declaration = ontology["ConstructorDeclaration"]()
+                constructor_declaration.jname.append(constructor.name)
+                class_declaration.body.append(constructor_declaration)
+
+            # print(class_declaration.body)
 
     ontology.save(file="../res/tree2.owl", format="rdfxml")
-
-
-
-
 
 
 if len(argv) < 2:
