@@ -56,12 +56,12 @@ def populate_ontology(ontology, class_declarations):
 def test():
     onto = get_ontology("res/tree.owl").load()
     tree = jl.parse.parse("class A { int x, y; }")
-    # populate_ontology(onto, {node.name: node for _, node in tree if type(node) is jl.tree.ClassDeclaration})
-    # a = onto['ClassDeclaration'].instances()[0]
-    # assert a.body[0].is_a[0].name == 'FieldDeclaration'
-    # assert a.body[0].jname[0] == 'x'
-    # assert a.body[1].is_a[0].name == 'FieldDeclaration'
-    # assert a.body[1].jname[0] == 'y'
+    populate_ontology(onto, {node.name: node for _, node in tree if type(node) is jl.tree.ClassDeclaration})
+    a = onto['ClassDeclaration'].instances()[0]
+    assert a.body[0].is_a[0].name == 'FieldDeclaration'
+    assert a.body[0].jname[0] == 'x'
+    assert a.body[1].is_a[0].name == 'FieldDeclaration'
+    assert a.body[1].jname[0] == 'y'
     print("Test 2: passed")
 
 
