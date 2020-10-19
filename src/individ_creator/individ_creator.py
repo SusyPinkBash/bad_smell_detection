@@ -14,15 +14,18 @@ def start(project_path):
     ontology.save(file="res/tree2.owl", format="rdfxml")
 
 
+
 def get_classesAST(project_path):
     # PARSING PROJECT FILES TO DICTIONARY {class_name : ClassDeclaration}
     # TODO: refactor with possibly comprehension and better structure
     class_declarations = {}
     for file in os.listdir(project_path):
         if file.endswith(".java"):
-            for _, node in jl.parse.parse(open(project_path + '/' + file, "r").read()):
+            java_file = open(project_path + '/' + file, "r")
+            for _, node in jl.parse.parse(java_file.read()):
                 if type(node) is jl.tree.ClassDeclaration:
                     class_declarations[node.name] = node
+            java_file.close()
     return class_declarations
 
 
@@ -53,22 +56,8 @@ def populate_ontology(ontology, class_declarations):
     return ontology
 
 
-def test():
-    onto = get_ontology("res/tree.owl").load()
-    tree = jl.parse.parse("class A { int x, y; }")
-    populate_ontology(onto, {node.name: node for _, node in tree if type(node) is jl.tree.ClassDeclaration})
-    a = onto['ClassDeclaration'].instances()[0]
-    assert a.body[0].is_a[0].name == 'FieldDeclaration'
-    assert a.body[0].jname[0] == 'x'
-    assert a.body[1].is_a[0].name == 'FieldDeclaration'
-    assert a.body[1].jname[0] == 'y'
-    print("Test 2: passed")
-
-
-if len(argv) < 2:
-    print("Please give as input the path of the java class files to create the ontology")
-    exit(1)
-if argv[1] == 'test':
-    test()
-else:
+if __name__ == "__main__":
+    if len(argv) < 2:
+        print("Please give as input the path of the java class files to create the ontology")
+        exit(1)
     start(argv[1])

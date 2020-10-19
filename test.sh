@@ -1,3 +1,2 @@
-ls src | while read file; do
-  python3 src/$file test;
-  done
+python3 src/onto_creator/onto_creator_tests.py
+python3 src/individ_creator/individ_creator_tests.py

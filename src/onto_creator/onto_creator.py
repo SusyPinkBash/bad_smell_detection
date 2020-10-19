@@ -12,8 +12,9 @@ class Class:
 
 
 def get_classes(python_file_name):
-    return [Class(node.name, [node_base.id for node_base in node.bases], [elt.s for elt in node.body[0].value.elts])
-            for node in walk(parse(open(python_file_name, "r").read())) if type(node) is ClassDef]
+    with open(python_file_name, "r") as python_file:
+        return [Class(node.name, [node_base.id for node_base in node.bases], [elt.s for elt in node.body[0].value.elts])
+                for node in walk(parse(python_file.read())) if type(node) is ClassDef]
 
 
 def start(python_file_name):
@@ -39,19 +40,9 @@ def start(python_file_name):
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 
 
-def test():
-    onto = get_ontology("res/tree.owl").load()
-    cd = onto["ClassDeclaration"]
-    assert cd.name == "ClassDeclaration"
-    assert len(cd.is_a) == 1
-    assert cd.is_a[0].name == 'TypeDeclaration'
-    print("Test 1: passed")
 
+    if len(argv) < 2:
+        print("Please give as input the path of the python class file to create the ontology")
+        exit(1)
 
-if len(argv) < 2:
-    print("Please give as input the path of the python class file to create the ontology")
-    exit(1)
-if argv[1] == 'test':
-    test()
-else:
     start(argv[1])
