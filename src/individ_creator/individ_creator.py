@@ -37,27 +37,27 @@ def populate_ontology(ontology, class_declarations):
 
             for method in classAST.methods:
                 if type(method) is javalang.tree.MethodDeclaration:
-                    method_declaration = ontology["MethodDeclaration"]()
-                    method_declaration.jname = [method.name]
-                    class_declaration.body.append(method_declaration)
+                    append_to_class_declaration(method, "MethodDeclaration", class_declaration, ontology)
 
             for field in classAST.fields:
                 if type(field) is javalang.tree.FieldDeclaration:
                     for decl in field.declarators:
-                        field_declaration = ontology["FieldDeclaration"]()
-                        field_declaration.jname = [decl.name]
-                        class_declaration.body.append(field_declaration)
+                        append_to_class_declaration(decl, "FieldDeclaration", class_declaration, ontology)
 
             for constructor in classAST.constructors:
                 if type(constructor) is javalang.tree.ConstructorDeclaration:
-                    constructor_declaration = ontology["ConstructorDeclaration"]()
-                    constructor_declaration.jname = [constructor.name]
-                    class_declaration.body.append(constructor_declaration)
+                    append_to_class_declaration(constructor, "ConstructorDeclaration", class_declaration, ontology)
+
     return ontology
 
 
-if __name__ == "__main__":
-    if len(argv) < 2:
-        print("Please give as input the path of the java class files to create the ontology")
-        exit(1)
-    start(argv[1])
+def append_to_class_declaration(node, declaration_type, class_declaration, ontology):
+    declaration = ontology[declaration_type]()
+    declaration.jname = [node.name]
+    class_declaration.body.append(declaration)
+
+
+if len(argv) < 2:
+    print("Please give as input the path of the java class files to create the ontology")
+    exit(1)
+start(argv[1])

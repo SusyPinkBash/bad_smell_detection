@@ -41,8 +41,8 @@ def start(python_file_name):
 
 
 
-    if len(argv) < 2:
-        print("Please give as input the path of the python class file to create the ontology")
-        exit(1)
+if len(argv) < 2:
+    print("Please give as input the path of the python class file to create the ontology")
+    exit(1)
 
-    start(argv[1])
+start(argv[1])
