@@ -40,9 +40,9 @@ def start(python_file_name):
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 
 
+if __name__ == "__main__":
+    if len(argv) < 2:
+        print("Please give as input the path of the python class file to create the ontology")
+        exit(1)
 
-if len(argv) < 2:
-    print("Please give as input the path of the python class file to create the ontology")
-    exit(1)
-
-start(argv[1])
+        start(argv[1])

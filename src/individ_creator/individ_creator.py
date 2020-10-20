@@ -14,7 +14,6 @@ def start(project_path):
     ontology.save(file="res/tree2.owl", format="rdfxml")
 
 
-
 def get_classesAST(project_path):
     # PARSING PROJECT FILES TO DICTIONARY {class_name : ClassDeclaration}
     # TODO: refactor with possibly comprehension and better structure
@@ -37,27 +36,47 @@ def populate_ontology(ontology, class_declarations):
 
             for method in classAST.methods:
                 if type(method) is javalang.tree.MethodDeclaration:
-                    append_to_class_declaration(method, "MethodDeclaration", class_declaration, ontology)
+                    declaration = add_new_declaration(method, "MethodDeclaration", class_declaration, ontology)
+                    add_parameter_declaration(method, declaration, ontology)
+                    add_field_declaration(method, declaration, ontology)
 
             for field in classAST.fields:
                 if type(field) is javalang.tree.FieldDeclaration:
                     for decl in field.declarators:
-                        append_to_class_declaration(decl, "FieldDeclaration", class_declaration, ontology)
+                        add_new_declaration(decl, "FieldDeclaration", class_declaration, ontology)
 
             for constructor in classAST.constructors:
                 if type(constructor) is javalang.tree.ConstructorDeclaration:
-                    append_to_class_declaration(constructor, "ConstructorDeclaration", class_declaration, ontology)
-
+                    declaration = add_new_declaration(constructor, "ConstructorDeclaration", class_declaration, ontology)
+                    add_parameter_declaration(constructor, declaration, ontology)
+                    add_field_declaration(constructor, declaration, ontology)
     return ontology
 
 
-def append_to_class_declaration(node, declaration_type, class_declaration, ontology):
+def add_new_declaration(node, declaration_type, class_declaration, ontology):
     declaration = ontology[declaration_type]()
     declaration.jname = [node.name]
     class_declaration.body.append(declaration)
+    return declaration
 
 
-if len(argv) < 2:
-    print("Please give as input the path of the java class files to create the ontology")
-    exit(1)
-start(argv[1])
+def add_parameter_declaration(node, declaration, ontology):
+    for parameter in node.parameters:
+        formal_declaration = ontology["FormalParameter"]()
+        formal_declaration.jname = [parameter.name]
+        declaration.parameters.append(formal_declaration)
+
+
+def add_field_declaration(node, declaration, ontology):
+    if node.body is not None:
+        for statement in node.body:
+            statement_type = type(statement).__name__
+            if statement_type != "LocalParameterDeclaration":
+                declaration.body.append(ontology[statement_type]())
+
+
+if __name__ == "__main__":
+    if len(argv) < 2:
+        print("Please give as input the path of the java class files to create the ontology")
+        exit(1)
+    start(argv[1])
