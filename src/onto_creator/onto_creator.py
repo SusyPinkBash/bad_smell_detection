@@ -45,4 +45,4 @@ if __name__ == "__main__":
         print("Please give as input the path of the python class file to create the ontology")
         exit(1)
 
-        start(argv[1])
+    start(argv[1])
