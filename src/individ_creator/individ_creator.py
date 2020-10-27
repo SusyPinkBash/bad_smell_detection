@@ -24,17 +24,14 @@ def get_classesAST(project_path):
             java_file = open(project_path + '/' + file, "r")
             for _, node in jl.parse.parse(java_file.read()):
                 if type(node) is jl.tree.ClassDeclaration:
-                    print(node.name)
                     class_declarations[node.name] = node
             java_file.close()
-    print()
     return class_declarations
 
 
 def populate_ontology(ontology, class_declarations):
     with ontology:
         for class_name, classAST in class_declarations.items():
-            print(class_name)
             class_declaration = ontology["ClassDeclaration"]()
             class_declaration.jname = [class_name]
 
