@@ -19,7 +19,7 @@ def get_classes(python_file_name):
 
 def start(python_file_name):
     ontology_file_name = "res/tree.owl"
-    ontology_file = get_ontology("http://test.org/tree.owl")
+    ontology_file = get_ontology("http://my.onto.org/tree.owl")
     with ontology_file:
         for current_class in get_classes(python_file_name):
             if len(current_class.super_classes) == 1:
