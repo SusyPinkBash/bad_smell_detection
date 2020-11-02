@@ -6,7 +6,7 @@ from owlready2 import *
 class ClassSmell:
     def __init__(self, row):
         self.class_name = str(row.class_name)
-        self.counter = int(row.cnt)
+        self.counter = int(row.counter)
 
 
 class MethodSmell(ClassSmell):
@@ -29,7 +29,7 @@ def prepare_query(string):
 
 def query_long(query_type, graph):
     # >= 20
-    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?cnt) 
+    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?counter) 
         WHERE {{ 
         ?c a tree:ClassDeclaration .
         ?c tree:jname ?class_name .
@@ -39,51 +39,51 @@ def query_long(query_type, graph):
         ?m tree:body ?statements .
         }} GROUP BY ?m"""
 
-    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.cnt) >= 20)]
+    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.counter) >= 20)]
 
 
 def query_large_class(graph):
     # >= 10 methods
-    query = f"""SELECT ?class_name (COUNT(*) AS ?cnt) 
+    query = f""" SELECT ?class_name (COUNT(*) AS ?counter) 
         WHERE {{
         ?c a tree:ClassDeclaration .
-       ?c tree:jname ?class_name .
-       ?c tree:body ?method_name .
-       ?method a tree:MethodDeclaration .
-       }} GROUP BY ?c"""
+        ?c tree:jname ?class_name .
+        ?c tree:body ?m .
+        ?m a tree:MethodDeclaration .
+        }} GROUP BY ?c"""
 
-    return [ClassSmell(row) for row in graph.query(prepare_query(query)) if (int(row.cnt) >= 10)]
+    return [ClassSmell(row) for row in graph.query(prepare_query(query)) if (int(row.counter) >= 10)]
 
 
 def query_with_switch(query_type, graph):
     # >= 1 switch statement in method/constructor body
-    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?cnt) 
-                WHERE {{
-                ?c a tree:ClassDeclaration . 
-                ?c tree:jname ?class_name . 
-                ?c tree:body ?m .
-                ?m a tree:{query_type}Declaration .
-                ?m tree:jname ?method_name .
-                ?m tree:body ?s . 
-                ?s a tree:SwitchStatement
-                }} GROUP BY ?m"""
+    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?counter) 
+        WHERE {{
+        ?c a tree:ClassDeclaration . 
+        ?c tree:jname ?class_name . 
+        ?c tree:body ?m .
+        ?m a tree:{query_type}Declaration .
+        ?m tree:jname ?method_name .
+        ?m tree:body ?s . 
+        ?s a tree:SwitchStatement
+        }} GROUP BY ?m"""
 
-    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.cnt) >= 1)]
+    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.counter) >= 1)]
 
 
 def query_with_long_parameter_list(query_type, graph):
     # >= 5 parameters
-    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?cnt) 
-                WHERE {{ 
-                ?c a tree:ClassDeclaration .
-                ?c tree:jname ?class_name .
-                ?c tree:body ?m .
-                ?m a tree:{query_type}Declaration .
-                ?m tree:jname ?method_name . 
-                ?m tree:parameters ?param .
-                }} GROUP BY ?m"""
+    query = f""" SELECT ?class_name ?method_name (COUNT(*) AS ?counter) 
+        WHERE {{ 
+        ?c a tree:ClassDeclaration .
+        ?c tree:jname ?class_name .
+        ?c tree:body ?m .
+        ?m a tree:{query_type}Declaration .
+        ?m tree:jname ?method_name . 
+        ?m tree:parameters ?param .
+        }} GROUP BY ?m"""
 
-    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.cnt) >= 5)]
+    return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.counter) >= 5)]
 
 
 def query_constructor_with_long_parameter_list(graph):
@@ -93,25 +93,25 @@ def query_constructor_with_long_parameter_list(graph):
 
 def query_data_class(graph):
     # class with only setters and getters
-    query0 = f""" SELECT ?class_name (COUNT(*) AS ?cnt) 
-                WHERE {{
-                ?c a tree:ClassDeclaration .
-                ?c tree:jname ?class_name .
-                ?c tree:body ?m .
-                ?m a tree:MethodDeclaration .
-                }} GROUP BY ?c"""
+    query0 = f""" SELECT ?class_name (COUNT(*) AS ?counter) 
+        WHERE {{
+        ?c a tree:ClassDeclaration .
+        ?c tree:jname ?class_name .
+        ?c tree:body ?m .
+        ?m a tree:MethodDeclaration .
+        }} GROUP BY ?c"""
 
-    query1 = f""" SELECT ?class_name (COUNT(*) as ?cnt) 
-                WHERE {{ ?c a tree:ClassDeclaration .
-                ?c tree:jname ?class_name .
-                ?c tree:body ?m .
-                ?m a tree:MethodDeclaration .
-                ?m tree:jname ?method_name .
-                FILTER regex(?method_name , "^(get|set)", "i") .
-                }} GROUP BY ?c"""
+    query1 = f""" SELECT ?class_name (COUNT(*) as ?counter) 
+        WHERE {{ ?c a tree:ClassDeclaration .
+        ?c tree:jname ?class_name .
+        ?c tree:body ?m .
+        ?m a tree:MethodDeclaration .
+        ?m tree:jname ?method_name .
+        FILTER regex(?method_name , "^(get|set)", "i") .
+        }} GROUP BY ?c"""
 
-    large_class = [ClassSmell(row) for row in graph.query(prepare_query(query0)) if row.cnt]
-    get_and_set = [ClassSmell(row) for row in graph.query(prepare_query(query1)) if row.cnt]
+    large_class = [ClassSmell(row) for row in graph.query(prepare_query(query0)) if row.counter]
+    get_and_set = [ClassSmell(row) for row in graph.query(prepare_query(query1)) if row.counter]
     return [method for large in large_class for method in get_and_set
             if large.class_name == method.class_name and large.counter == method.counter]
 
@@ -138,15 +138,18 @@ def run_queries(graph):
 
 def print_queries(queries):
     for key in queries:
-        print(key, ":")
-        if queries[key] != "TODO":
+        if len(queries[key]) == 0:
+            print("No bad smell found for " + key)
+        else:
+            print(key, ":")
             for element in queries[key]:
                 string = '\t' + str(element.class_name) + ' '
                 if type(element) == MethodSmell:
                     string += str(element.method_name) + ' '
                 string += str(element.counter)
                 print(string)
-            print()
+
+        print()
 
 
 if __name__ == "__main__":

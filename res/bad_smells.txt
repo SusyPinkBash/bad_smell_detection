@@ -10,19 +10,12 @@ LongMethod :
 	JNI initFEN 88
 	JNI initRandomFisher 87
 
-LongConstructor :
+No bad smell found for LongConstructor
 
 LargeClass :
-	PGNProvider 2550
-	DatabaseHelper 450
-	ChessPuzzleProvider 4350
-	GameControl 13200
-	Valuation 3750
-	JNI 6750
-	PGNEntry 600
-	PGNColumns 1500
-	Move 4800
-	Pos 1050
+	GameControl 63
+	JNI 44
+	Move 21
 
 MethodWithSwitch :
 	PGNProvider query 1
@@ -34,7 +27,7 @@ MethodWithSwitch :
 	ChessPuzzleProvider delete 1
 	ChessPuzzleProvider update 1
 
-ConstructorWithSwitch :
+No bad smell found for ConstructorWithSwitch
 
 MethodWithLongParameterList :
 	PGNProvider query 5
@@ -42,7 +35,7 @@ MethodWithLongParameterList :
 	GameControl addPGNEntry 5
 	JNI setCastlingsEPAnd50 6
 
-ConstructorWithLongParameterList :
+No bad smell found for ConstructorWithLongParameterList
 
 DataClass :
 	Valuation 1
