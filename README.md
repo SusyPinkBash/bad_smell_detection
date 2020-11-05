@@ -1,6 +1,8 @@
-#Susanna Ardigò
-##Knowledge Analysis and Management
-###Project 1: Bad Smell Detection
+# Susanna Ardigò
+
+## Knowledge Analysis and Management
+
+### Project 1: Bad Smell Detection
 
 #### Run the project with scripts
 To run the project use the command:
