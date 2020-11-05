@@ -9,8 +9,16 @@ To test  the project use the command:
     `sh test.sh`
     
  #### Run single files
-    
-To run separately:
-* Ontology Creator: `python3 src/onto_creator/onto_creator.py path_of_tree.py`
-* Individ Creator: `python3 src/individ_creator/individ_creator.py path_of_folder_with_javafiles`
-* Bad Smells: `python3 src/bad_smells/bad_smells.py path_of_tree2.owl > path_to_save_output.txt`
+Ontology Creator:
+* `python3 src/onto_creator/onto_creator.py path_of_tree.py`
+* `python3 src/onto_creator/onto_creator.py tree.py`
+
+
+Individ Creator:
+* `python3 src/individ_creator/individ_creator.py path_of_folder_with_javafiles`
+* `python3 src/individ_creator/individ_creator.py res/android-chess/app/src/main/java/jwtc/chess/`
+
+
+Bad Smells:
+* `python3 src/bad_smells/bad_smells.py path_of_tree2.owl > path_to_save_output.txt`
+* `python3 src/bad_smells/bad_smells.py res/tree2.owl > res/bad_smells.txt`
