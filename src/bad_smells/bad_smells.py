@@ -10,7 +10,6 @@ class ClassSmell:
 
 
 class MethodSmell(ClassSmell):
-
     def __init__(self, row):
         super().__init__(row)
         self.method_name = str(row.method_name)
@@ -18,9 +17,9 @@ class MethodSmell(ClassSmell):
 
 def start(owl_path):
     world = World()
-    ontology = world.get_ontology(owl_path).load()
+    world.get_ontology(owl_path).load()
     graph = world.as_rdflib_graph()
-    run_queries(graph)
+    print_queries(run_queries(graph))
 
 
 def prepare_query(string):
@@ -117,23 +116,16 @@ def query_data_class(graph):
 
 
 def run_queries(graph):
-    # TODO: return all results in a dictionary
-    queries = {
-        # >= 20 statements
+    return {
         "LongMethod": query_long("Method", graph),
         "LongConstructor": query_long("Constructor", graph),
-        # >= 10 methods
         "LargeClass": query_large_class(graph),
-        # >= 1 switch statement in method/constructor body
         "MethodWithSwitch": query_with_switch("Method", graph),
         "ConstructorWithSwitch": query_with_switch("Constructor", graph),
-        # >= 5 parameters
         "MethodWithLongParameterList": query_with_long_parameter_list("Method", graph),
         "ConstructorWithLongParameterList": query_with_long_parameter_list("Constructor", graph),
-        # class with only setters and getters
         "DataClass": query_data_class(graph)
     }
-    print_queries(queries)
 
 
 def print_queries(queries):
@@ -153,5 +145,7 @@ def print_queries(queries):
 
 
 if __name__ == "__main__":
-    file = "res/tree2.owl" if len(argv) < 2 else argv[1]
-    start(file)
+    if len(argv) < 2:
+        print("Please give as input the path of the owl file to create find bad smells")
+        exit(1)
+    start(argv[1])
