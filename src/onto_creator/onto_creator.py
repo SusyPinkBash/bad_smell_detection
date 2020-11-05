@@ -32,17 +32,14 @@ def start(python_file_name):
                                                ontology_file[current_class.super_classes[1]],))
 
             for class_property in current_class.properties:
-                if class_property == "body" or class_property == "parameters":
-                    new_class(class_property, (ObjectProperty,))
-                else:
+                if class_property != "body" and class_property != "parameters":
                     new_class("jname" if class_property == "name" else class_property, (DataProperty,))
+
+        new_class("body", (ObjectProperty,))
+        new_class("parameters", (ObjectProperty,))
 
     ontology_file.save(file=ontology_file_name, format="rdfxml")
 
 
 if __name__ == "__main__":
-    if len(argv) < 2:
-        print("Please give as input the path of the python class file to create the ontology")
-        exit(1)
-
-    start(argv[1])
+    start(argv[1] if len(argv) > 1 else "res/tree.py")
