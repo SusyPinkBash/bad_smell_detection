@@ -85,11 +85,6 @@ def query_with_long_parameter_list(query_type, graph):
     return [MethodSmell(row) for row in graph.query(prepare_query(query)) if (int(row.counter) >= 5)]
 
 
-def query_constructor_with_long_parameter_list(graph):
-    # >= 5 parameters
-    return "TODO"
-
-
 def query_data_class(graph):
     # class with only setters and getters
     query0 = f""" SELECT ?class_name (COUNT(*) AS ?counter) 
@@ -140,12 +135,8 @@ def print_queries(queries):
                     string += str(element.method_name) + ' '
                 string += str(element.counter)
                 print(string)
-
         print()
 
 
 if __name__ == "__main__":
-    if len(argv) < 2:
-        print("Please give as input the path of the owl file to create find bad smells")
-        exit(1)
-    start(argv[1])
+    start(argv[1] if len(argv) > 1 else "res/tree2.py")
