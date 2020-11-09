@@ -63,5 +63,42 @@ class IndividCreatorTests(unittest.TestCase):
                          "name should be equal to ReturnStatement")
         self.delete_ontology(ontology)
 
+    def test_14(self):
+        code = "class A { public int sum(int[] arr) { int sum = 0; for(int i=0; i < arr.length; ++i) " \
+               "{ sum += arr[i]; } return sum; }}"
+        ontology = self.create_ontology(code)
+        instance = ontology['ClassDeclaration'].instances()[0]
+        b0 = instance.body[0]
+        self.assertEqual(b0.jname[0], 'sum', "jname should be equal to sum")
+        self.assertEqual(b0.parameters[0].jname[0], 'arr', "jname should be equal to arr")
+        self.assertEqual(b0.parameters[0].is_a[0].name, 'FormalParameter', "Should be a FormalParameter definition")
+        self.assertEqual(b0.body[0].is_a[0].name, "ForStatement", "Should be a ForStatement definition")
+        self.assertEqual(b0.body[1].is_a[0].name, 'BlockStatement', "name should be equal to BlockStatement")
+        self.assertEqual(b0.body[2].is_a[0].name, 'StatementExpression', "name should be equal to StatementExpression")
+        self.assertEqual(b0.body[3].is_a[0].name, 'ReturnStatement', "name should be equal to ReturnStatement")
+        self.delete_ontology(ontology)
+
+    def test_15(self):
+        code = "class A { public void other(int x) { while(x < 10) ++x; } public boolean test(int x, int y) " \
+               "{ if (x >= y) return x; else return y; } }"
+        ontology = self.create_ontology(code)
+        instance = ontology['ClassDeclaration'].instances()[0]
+        b0 = instance.body[0]
+        self.assertEqual(b0.jname[0], 'other', "jname should be equal to other")
+        self.assertEqual(b0.parameters[0].jname[0], 'x', "jname should be equal to x")
+        self.assertEqual(b0.parameters[0].is_a[0].name, 'FormalParameter', "Should be a FormalParameter definition")
+        self.assertEqual(b0.body[0].is_a[0].name, "WhileStatement", "Should be a WhileStatement definition")
+        self.assertEqual(b0.body[1].is_a[0].name, "StatementExpression", "Should be a StatementExpression definition")
+
+        b1 = instance.body[1]
+        self.assertEqual(b1.jname[0], 'test', "jname should be equal to test")
+        self.assertEqual(b1.parameters[0].is_a[0].name, 'FormalParameter', "Should be a FormalParameter definition")
+        self.assertEqual(b1.parameters[1].is_a[0].name, 'FormalParameter', "Should be a FormalParameter definition")
+        self.assertEqual(b1.body[0].is_a[0].name, "IfStatement", "Should be a IfStatement definition")
+        self.assertEqual(b1.body[1].is_a[0].name, "ReturnStatement", "Should be a ReturnStatement definition")
+        self.assertEqual(b1.body[2].is_a[0].name, "ReturnStatement", "Should be a ReturnStatement definition")
+
+        self.delete_ontology(ontology)
+
 
 unittest.main()
